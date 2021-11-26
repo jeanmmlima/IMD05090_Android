@@ -14,11 +14,27 @@
         android:textSize="20dp"
         android:gravity="center" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Inserir o nome"
+        android:id="@+id/etNome" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="abrir a activity secundária"
         android:id="@+id/btnAbrirSecundaria" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvInfo" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvCidades"/>
 
 
 </LinearLayout>
