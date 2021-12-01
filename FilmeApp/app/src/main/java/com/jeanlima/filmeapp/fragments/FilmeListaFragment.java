@@ -1,8 +1,12 @@
 package com.jeanlima.filmeapp.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
 
 import com.jeanlima.filmeapp.model.Filme;
@@ -52,4 +56,32 @@ public class FilmeListaFragment extends ListFragment {
         return filmes;
     }
 
+    @Override
+    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        //1. Comunicar a atividade filmeActivity que um item foi clicado
+
+        Activity activity = getActivity();
+
+        //2. Verificar se a atividade IMPLEMENTA a interface: AoClicarNoFilme
+
+        if(activity instanceof AoClicarNoFilme){
+
+            //2.1 - colocando na variavel filme o elemento da lista que foi clicado
+            Filme filme = (Filme) l.getItemAtPosition(position);
+
+            //2.2 - Passar o filme VIA interface
+
+            AoClicarNoFilme listener = (AoClicarNoFilme) activity;
+            listener.clicouNoFilme(filme);
+
+
+        }
+
+    }
+
+    public interface AoClicarNoFilme{
+        void clicouNoFilme(Filme filme);
+    }
 }

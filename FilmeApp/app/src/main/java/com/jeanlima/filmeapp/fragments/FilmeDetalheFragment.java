@@ -14,8 +14,8 @@ import com.jeanlima.filmeapp.model.Filme;
 
 public class FilmeDetalheFragment extends Fragment {
 
-    private static final String TAG_DETALHE = "tagDetalhe";
-    private static final String FILME = "filme";
+    public static final String TAG_DETALHE = "tagDetalhe";
+    public static final String FILME = "filme";
 
     Filme mFilme;
 
@@ -68,7 +68,7 @@ public class FilmeDetalheFragment extends Fragment {
 
         if(mFilme != null){
             tvNomeFilme.setText(mFilme.nome);
-            tvDuracao.setText(mFilme.nome);
+            tvDuracao.setText(mFilme.duracao);
             tvAno.setText(String.valueOf(mFilme.ano_lancamento));
             rbEstrelas.setRating(mFilme.estrelas);
         }
