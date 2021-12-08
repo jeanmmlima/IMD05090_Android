@@ -2,6 +2,7 @@ package com.jeanlima.filmeapp.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,7 @@ public class FilmeDialogFragment extends DialogFragment {
         //2. A Atividade Implementa a interface?
         if(activity instanceof AoSalvarFilme){
 
+            
             mFilme.setNome(etNome.getText().toString());
             mFilme.setDuracao(etDuracao.getText().toString());
             mFilme.setAno_lancamento(Integer.parseInt(etAno.getText().toString()));

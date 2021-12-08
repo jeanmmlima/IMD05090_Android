@@ -42,6 +42,8 @@ public class FilmeListaFragment extends ListFragment {
         //para os dados para a ListView
         setListAdapter(mAdapter);
 
+
+
     }
 
     private List<Filme> carregaFilmes(){
@@ -88,5 +90,51 @@ public class FilmeListaFragment extends ListFragment {
     public void adicionar(Filme filme){
         mFilmes.add(filme);
         mAdapter.notifyDataSetChanged();
+    }
+
+    public void buscar(String s){
+
+        //1. validar a string de busca
+
+        if(s == null || s.trim().equals("")){
+            limpaBusca();
+            return;
+        }
+
+        //2. Criar uma lista modificada de filmes de acordo com o parametro de busca (s)
+
+        List<Filme> filmesEncontrados = new ArrayList<Filme>(mFilmes);
+
+        //2.1 percorrer a lista e retirar os filmes NÃO relacionados ao parametro de busca (s)
+
+        for(int i = filmesEncontrados.size()-1; i >= 0; i--){
+            Filme filme = filmesEncontrados.get(i);
+            //verificar se o filme na posicao i contem em SEU nome o trecho buscado
+            //que é representado por s. Se não tiver, filme i sai da lista
+
+            if(!filme.getNome().toUpperCase().contains(s.toUpperCase())){
+                filmesEncontrados.remove(filme);
+            }
+        }
+        //Configurar o adapter
+        mAdapter = new ArrayAdapter<Filme>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                filmesEncontrados
+        );
+
+        setListAdapter(mAdapter);
+
+    }
+
+    public void limpaBusca(){
+        //(atividade, layout - simple_list_item_1, lista com dados)
+        mAdapter = new ArrayAdapter<Filme>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                mFilmes
+        );
+        //para os dados para a ListView
+        setListAdapter(mAdapter);
     }
 }

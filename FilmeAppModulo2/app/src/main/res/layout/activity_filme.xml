@@ -6,11 +6,17 @@
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.jeanlima.filmeapp.fragments.FilmeListaFragment"
-        android:id="@+id/fragmentLista" />
+        android:id="@+id/fragmentLista" /> -->
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.jeanlima.filmeapp.fragments.FilmeListaModFragment"
+        android:id="@+id/fragmentListaMod" />
 
 </LinearLayout>
