@@ -7,8 +7,10 @@
         <entry key="app/src/main/res/layout/activity_filme.xml" value="0.30052083333333335" />
         <entry key="app/src/main/res/layout/activity_filme_detalhe.xml" value="0.30052083333333335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2833333333333333" />
+        <entry key="app/src/main/res/layout/elemento_lista_mod.xml" value="0.67" />
         <entry key="app/src/main/res/layout/fragment_filme_detalhe.xml" value="0.2833333333333333" />
         <entry key="app/src/main/res/layout/fragment_filme_dialog.xml" value="0.30052083333333335" />
+        <entry key="app/src/main/res/layout/fragment_filme_lista_mod.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.30052083333333335" />
       </map>
     </option>

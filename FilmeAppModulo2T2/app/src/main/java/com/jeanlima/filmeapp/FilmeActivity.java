@@ -1,6 +1,8 @@
 package com.jeanlima.filmeapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +22,8 @@ import com.jeanlima.filmeapp.model.Filme;
 
 public class FilmeActivity extends AppCompatActivity
         implements FilmeListaFragment.AoClicarNoFilme, FilmeDialogFragment.AoSalvarFilme,
-                    SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener{
+                    SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener,
+InfoDialogFragment.AoClicarEmInfo{
 
     private FilmeListaFragment filmeListaFragment;
     private FragmentManager mFragmentManager;
@@ -146,5 +149,16 @@ public class FilmeActivity extends AppCompatActivity
     public boolean onMenuItemActionCollapse(MenuItem item) {
         filmeListaFragment.limpaBusca();
         return true;
+    }
+
+    @Override
+    public void aoClicar(int botao) {
+
+        if(botao == DialogInterface.BUTTON_POSITIVE){
+            Intent it = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.imd.ufrn.br"));
+            startActivity(it);
+        }
+
     }
 }
