@@ -19,6 +19,7 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
 
     private List<Filme> listaFilmes;
 
+
     public AdapterMod(List<Filme> lista){
         this.listaFilmes = lista;
     }
@@ -56,7 +57,7 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
     }
 
     //representa CADA elemento da lista personalizada
-    public class MinhaViewHolder extends RecyclerView.ViewHolder{
+    public class MinhaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tvNome;
         TextView tvAno;
@@ -72,7 +73,29 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
 
             cvItem = itemView.findViewById(R.id.cvItem);
 
+            cvItem.setOnClickListener(this);
+
         }
 
+        @Override
+        public void onClick(View v) {
+
+            listener.clicouNoElemento(getLayoutPosition());
+
+        }
     }
+
+    //interface para identificar o elemento da lista que foi clicado
+    public interface AoClicarNaLista{
+        void clicouNoElemento(int position);
+    }
+
+    private AoClicarNaLista listener;
+
+    public void implementaAoClicarNaLista(AoClicarNaLista listener){
+        this.listener = listener;
+    }
+
+
+
 }
