@@ -17,15 +17,19 @@ import androidx.fragment.app.FragmentTransaction;
 import com.jeanlima.filmeapp.fragments.FilmeDetalheFragment;
 import com.jeanlima.filmeapp.fragments.FilmeDialogFragment;
 import com.jeanlima.filmeapp.fragments.FilmeListaFragment;
+import com.jeanlima.filmeapp.fragments.FilmeListaModFragment;
 import com.jeanlima.filmeapp.fragments.InfoDialogFragment;
 import com.jeanlima.filmeapp.model.Filme;
 
 public class FilmeActivity extends AppCompatActivity
         implements FilmeListaFragment.AoClicarNoFilme, FilmeDialogFragment.AoSalvarFilme,
                     SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener,
-InfoDialogFragment.AoClicarEmInfo{
+InfoDialogFragment.AoClicarEmInfo, FilmeListaModFragment.AoClicarNoFilmeMod {
 
     private FilmeListaFragment filmeListaFragment;
+
+    private FilmeListaModFragment filmeListaModFragment;
+
     private FragmentManager mFragmentManager;
 
     @Override
@@ -38,6 +42,8 @@ InfoDialogFragment.AoClicarEmInfo{
         mFragmentManager = getSupportFragmentManager();
 
         filmeListaFragment = (FilmeListaFragment) mFragmentManager.findFragmentById(R.id.fragmentLista);
+
+        filmeListaModFragment = (FilmeListaModFragment) mFragmentManager.findFragmentById(R.id.fragmentListaMod);
 
 
     }
@@ -125,7 +131,9 @@ InfoDialogFragment.AoClicarEmInfo{
 
     @Override
     public void salvouFilme(Filme filme) {
-        filmeListaFragment.adicionar(filme);
+
+       // filmeListaFragment.adicionar(filme);
+        filmeListaModFragment.adicionar(filme);
     }
 
     @Override
@@ -135,7 +143,8 @@ InfoDialogFragment.AoClicarEmInfo{
     //chamado toda vez que o parametro da busca muda: usuario inserindo carcteres
     @Override
     public boolean onQueryTextChange(String newText) {
-        filmeListaFragment.buscar(newText);
+        //filmeListaFragment.buscar(newText);
+        filmeListaModFragment.buscar(newText);
         return false;
     }
 
@@ -147,7 +156,8 @@ InfoDialogFragment.AoClicarEmInfo{
 
     @Override
     public boolean onMenuItemActionCollapse(MenuItem item) {
-        filmeListaFragment.limpaBusca();
+        //filmeListaFragment.limpaBusca();
+        filmeListaModFragment.limpaBusca();
         return true;
     }
 
@@ -157,6 +167,36 @@ InfoDialogFragment.AoClicarEmInfo{
         if(botao == DialogInterface.BUTTON_POSITIVE){
             Intent it = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://www.imd.ufrn.br"));
+            startActivity(it);
+        }
+
+    }
+
+    @Override
+    public void clicouNoFilmeMod(Filme filme) {
+
+        if(isTablet()){
+
+            //1. instanciar o fragmento desejado
+            FilmeDetalheFragment filmeDetalheFragment = FilmeDetalheFragment.novaInstancia(filme);
+
+            //2 Exibir o fragmento (coloca-lo no layout)
+
+            //2.1 Fragment Manager - gerenciador de fragmentos
+
+            //FragmentManager fm = getSupportFragmentManager();
+
+            //2.2 Fragment Transaction - adiciona ou troca um fragmento
+            FragmentTransaction ft = mFragmentManager.beginTransaction();
+
+            //(layout onde será exibido o fragment - id, passar a instancia do fragment, a TAG)
+            ft.replace(R.id.detalhe,filmeDetalheFragment,FilmeDetalheFragment.TAG_DETALHE);
+            ft.commit();
+
+
+        } else {
+            Intent it = new Intent(this, FilmeDetalheActivity.class);
+            it.putExtra("filme",filme);
             startActivity(it);
         }
 

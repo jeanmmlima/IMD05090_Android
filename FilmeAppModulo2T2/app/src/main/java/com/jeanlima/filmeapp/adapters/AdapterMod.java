@@ -57,7 +57,7 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
     }
 
     //MinhaViewHolder é a classe (interna) que representa CADA elemento da lista personalizada
-    public class MinhaViewHolder extends RecyclerView.ViewHolder{
+    public class MinhaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tvNome;
         TextView tvAno;
@@ -72,7 +72,30 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
             rbEstrelas = itemView.findViewById(R.id.rbEstrelasRV);
             cvElemento = itemView.findViewById(R.id.cvElemento);
 
+            cvElemento.setOnClickListener(this);
+
 
         }
+
+        @Override
+        public void onClick(View v) {
+            listener.clicouNoElemento(getLayoutPosition());
+        }
     }
+
+    //interface para identificar o elemento da lista que foi clicado
+    public interface AoClicarNaLista{
+        void clicouNoElemento(int position);
+    }
+
+    private AoClicarNaLista listener;
+
+    public void implementaAoClicarNaLista(AoClicarNaLista listener){
+        this.listener = listener;
+    }
+
+
+
+
+
 }
