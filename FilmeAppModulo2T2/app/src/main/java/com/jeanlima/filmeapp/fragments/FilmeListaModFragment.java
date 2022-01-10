@@ -134,10 +134,37 @@ public class FilmeListaModFragment extends Fragment {
         adapterMod = new AdapterMod(filmesEncontrados);
         rvFilmes.setAdapter(adapterMod);
 
+        adapterMod.implementaAoClicarNaLista(new AdapterMod.AoClicarNaLista() {
+            @Override
+            public void clicouNoElemento(int position) {
+                Activity activity = getActivity();
+
+                if(activity instanceof AoClicarNoFilmeMod){
+
+                    AoClicarNoFilmeMod listener = (AoClicarNoFilmeMod) activity;
+                    listener.clicouNoFilmeMod(filmesEncontrados.get(position));
+                }
+            }
+        });
+
+
     }
 
     public void limpaBusca(){
         adapterMod = new AdapterMod(mFilmes);
         rvFilmes.setAdapter(adapterMod);
+
+        adapterMod.implementaAoClicarNaLista(new AdapterMod.AoClicarNaLista() {
+            @Override
+            public void clicouNoElemento(int position) {
+                Activity activity = getActivity();
+
+                if(activity instanceof AoClicarNoFilmeMod){
+
+                    AoClicarNoFilmeMod listener = (AoClicarNoFilmeMod) activity;
+                    listener.clicouNoFilmeMod(mFilmes.get(position));
+                }
+            }
+        });
     }
 }
