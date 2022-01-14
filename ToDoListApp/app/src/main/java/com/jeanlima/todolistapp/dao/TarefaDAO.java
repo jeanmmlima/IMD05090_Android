@@ -50,7 +50,7 @@ public class TarefaDAO {
         Cursor c = le.rawQuery(sql,null);
 
         //3. percorrer o cursor
-
+        c.moveToFirst();
         while(c.moveToNext()){
 
             Tarefa tarefa = new Tarefa();
@@ -66,5 +66,42 @@ public class TarefaDAO {
         }
         c.close();
         return tarefas;
+    }
+
+    public boolean atualizar(Tarefa tarefa){
+
+        //1. definir conteudo a ser salvo
+        ContentValues cv = new ContentValues();
+        cv.put("descricao",tarefa.getDescricao());
+
+        //2. atualizar valor no banco
+        try{
+            String[] args = {tarefa.getId().toString()};
+            //2.1 update(nome da tabela, conteudo para atualizar, clausula de atualização (where)
+            // o argumento da condição --> ?)
+            escreve.update(DBHelper.TABELA_TAREFAS,cv,"id=?",args);
+            Log.i("INFO","Registro atualizado com sucesso!");
+        }catch(Exception e){
+            Log.i("INFO","Erro ao atualizar registro!" + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deletar(Tarefa tarefa){
+
+        //1. deletar um registro de tarefa na tabela tarefas
+
+        try{
+            //id do registro que será deletado
+            String[] args = {tarefa.getId().toString()};
+            escreve.delete(DBHelper.TABELA_TAREFAS,"id=?",args);
+            Log.i("INFO","Registro apagado com sucesso!");
+        }catch(Exception e){
+            Log.i("INFO","Erro apagar registro!"+e.getMessage());
+            return false;
+        }
+        return true;
+
     }
 }
