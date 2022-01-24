@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
                 MinhaTarefa tarefa = new MinhaTarefa();
 
-                String cep = "59054110";
+                String cep = "01001000";
                 String urlApi = "https://viacep.com.br/ws/"+cep+"/json/";
 
                 tarefa.execute(urlApi);
@@ -106,7 +109,35 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String resultado) {
             super.onPostExecute(resultado);
 
-            tvResultado.setText(resultado);
+            //3. tratando os dados JSON
+
+            String logradouro = null;
+            String cep = null;
+            String complemento = null;
+            String bairro = null;
+            String localidade = null;
+            String uf = null;
+
+            try{
+
+                //3.1 criar objeto JSONObject
+                JSONObject jsonObject = new JSONObject(resultado);
+
+                logradouro = jsonObject.getString("logradouro");
+                cep = jsonObject.getString("cep");
+                complemento = jsonObject.getString("complemento");
+                bairro = jsonObject.getString("bairro");
+                localidade = jsonObject.getString("localidade");
+                uf = jsonObject.getString("uf");
+
+
+
+            }catch(JSONException e){
+                //caso resultado nao esteja num formato válido
+                e.printStackTrace();
+            }
+
+            tvResultado.setText(logradouro + " / " +cep+" / "+ localidade+" / "+uf);
         }
     }
 
