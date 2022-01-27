@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -107,7 +110,28 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String resultado) {
             super.onPostExecute(resultado);
 
-            tvResultado.setText(resultado);
+
+            //3. tratando dados json
+
+            String logradouro = null;
+            String bairro = null;
+            String localidade = null;
+            String uf = null;
+
+            try{
+                JSONObject jsonObject = new JSONObject(resultado);
+
+                logradouro = jsonObject.getString("logradouro");
+                bairro = jsonObject.getString("bairro");
+                localidade = jsonObject.getString("localidade");
+                uf = jsonObject.getString("uf");
+
+
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+
+            tvResultado.setText("Rua: " + logradouro + " / Bairro: "+bairro+" / Cidade: "+localidade);
         }
     }
 }
