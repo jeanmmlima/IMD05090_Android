@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2994791666666667" />
         <entry key="app/src/main/res/layout/content.xml" value="0.2994791666666667" />
         <entry key="app/src/main/res/layout/elemento_lista.xml" value="0.2994791666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_todolist_round.xml" value="0.31927083333333334" />
       </map>
     </option>
   </component>
