@@ -3,6 +3,8 @@ package com.jeanlima.mapasapp;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,6 +22,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeanlima.mapasapp.databinding.ActivityMapsBinding;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -83,6 +89,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng localUsuario = new LatLng(latitude,longitude);
                 mMap.addMarker(new MarkerOptions().position(localUsuario).title("posucao usuario"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(localUsuario,15));
+
+                /* PARTE 3 GEOCODING */
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+                try{
+
+                    //List<Address> listaEndereco = geocoder.getFromLocation(latitude,longitude,1);
+                    String stringEndereco = "Campus Universitário - Lagoa Nova, Natal - RN, 598078-970";
+                    List<Address> listaEndereco = geocoder.getFromLocationName(stringEndereco,1);
+                    if(listaEndereco != null && listaEndereco.size() > 0){
+                        Address endereco = listaEndereco.get(0);
+                        //0:"Av. Brigadeiro Luís Antônio - Bela Vista, São Paulo - SP, 01325-050, Brazil
+                        //0:"R. do Antimônio, 59109 - Lagoa Nova, Natal - RN, 59076-550, Brazil
+                        Log.d("Endereco: ",endereco.toString());
+                    }
+
+
+                }catch(IOException e){
+                    e.printStackTrace();
+
+                }
 
             }
 
