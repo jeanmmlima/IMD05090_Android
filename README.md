@@ -1,2 +1,4 @@
 # IMD0509 - Desenvolvimento Para Dispositivos Móveis
-Repositório com projetos das aulas de Desenvolvimento para Dispositivos Móveis - IMD0509
+
+## Plataforma: Android 🤖
+Repositório com projetos das aulas de Desenvolvimento para Dispositivos Móveis - IMD0509: Apps nativos em Java para Android.
